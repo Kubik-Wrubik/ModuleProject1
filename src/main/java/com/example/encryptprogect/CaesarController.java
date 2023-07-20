@@ -10,9 +10,9 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.IOException;
 
-public class CaesarController extends Encryptor{
+public class CaesarController extends Encryptor {
 	@FXML
 	TextField inputPath, outputPath, textKey;
 	@FXML
@@ -31,15 +31,13 @@ public class CaesarController extends Encryptor{
 			if(button1.isSelected()){
 				status = "encrypted!";
 				writeTextIntoFile(outputPath.getText(), encrypt(charText, key));
-			}
-			else if(button2.isSelected()){
+			} else if(button2.isSelected()){
 				status = "deciphered!";
 				writeTextIntoFile(outputPath.getText(), encrypt(charText, -key));
-			}
-			else{
+			} else{
 				return;
 			}
-		}catch(IOException exception){
+		} catch(IOException exception){
 			status = "failed!";
 		}
 
@@ -49,7 +47,7 @@ public class CaesarController extends Encryptor{
 		EndScreenController endScreenController = loader.getController();
 		endScreenController.displayStatus(status);
 
-		Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+		Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();

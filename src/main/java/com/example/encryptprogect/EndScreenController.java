@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 
 public class EndScreenController {
 	@FXML
@@ -14,7 +13,7 @@ public class EndScreenController {
 	private AnchorPane Pane;
 
 	public void exit(ActionEvent e){
-		Stage stage = (Stage)Pane.getScene().getWindow();
+		Stage stage = (Stage) Pane.getScene().getWindow();
 		stage.close();
 	}
 

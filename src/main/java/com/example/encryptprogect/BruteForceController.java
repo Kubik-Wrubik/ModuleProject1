@@ -6,13 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.IOException;
 
-public class BruteForceController extends Encryptor{
+public class BruteForceController extends Encryptor {
 	@FXML
 	TextField inputPath, outputPath;
 
@@ -20,21 +19,21 @@ public class BruteForceController extends Encryptor{
 		if(inputPath.getText().equals("") || outputPath.getText().equals("")){
 			return;
 		}
-			char[] encryptedCharText = readTextFromFile(inputPath.getText());
-			int maxChar = 256, maxWords = Integer.MIN_VALUE;
-			int resultKey = 0;
-			char[] decipherChars;
-			for(int key = 0; key < maxChar; key++){
-				decipherChars = encrypt(encryptedCharText,key);
-				int wordCount = new String(decipherChars).split(" ").length;
-				if(wordCount > maxWords){
-					maxWords = wordCount;
-					resultKey = key;
-				}
+		char[] encryptedCharText = readTextFromFile(inputPath.getText());
+		int maxChar = 256, maxWords = Integer.MIN_VALUE;
+		int resultKey = 0;
+		char[] decipherChars;
+		for(int key = 0; key < maxChar; key++){
+			decipherChars = encrypt(encryptedCharText, key);
+			int wordCount = new String(decipherChars).split(" ").length;
+			if(wordCount > maxWords){
+				maxWords = wordCount;
+				resultKey = key;
 			}
+		}
 
-			final char[] decipherResult = encrypt(encryptedCharText, resultKey);
-			writeTextIntoFile(outputPath.getText(), decipherResult);
+		final char[] decipherResult = encrypt(encryptedCharText, resultKey);
+		writeTextIntoFile(outputPath.getText(), decipherResult);
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("end-screen.fxml"));
 		Parent root = loader.load();
@@ -42,7 +41,7 @@ public class BruteForceController extends Encryptor{
 		EndScreenController endScreenController = loader.getController();
 		endScreenController.displayStatus("Encrypted: key is " + resultKey);
 
-		Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+		Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
